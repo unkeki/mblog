@@ -1,0 +1,60 @@
+server:
+  port: 8088
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:mysql://localhost:3306/eblog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: "000000"
+
+  # elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 1.12.250.154:9300
+      repositories:
+        enabled: true
+
+
+  #  # rabbitmq配置
+#  rabbitmq:
+#    # 用户名
+#    username: admin
+#    # 密码
+#    password: admin
+#    # 服务器地址
+#    host: 1.12.250.154
+#    # 端口
+#    port: 15672
+#    #消息确认回调
+#    publisher-confirm-type: correlated
+#    #消息失败回调
+#    publisher-returns: true
+
+  rabbitmq:
+    username: admin
+    password: admin
+    host: 1.12.250.154
+    port: 15672
+
+#redis
+  redis:
+    host: 1.12.250.154
+    port: 6379
+    password: "000000"
+    timeout: 5000
+
+#freemaker配置，取消缓冲
+  freemarker:
+    cache: false
+
+
+file:
+  upload:
+    dir: ${user.dir}/upload
