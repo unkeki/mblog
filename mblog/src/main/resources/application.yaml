@@ -13,14 +13,6 @@ spring:
     username: root
     password: "000000"
 
-  # elasticsearch
-  data:
-    elasticsearch:
-      cluster-name: elasticsearch
-      cluster-nodes: 1.12.250.154:9300
-      repositories:
-        enabled: true
-
 
   #  # rabbitmq配置
 #  rabbitmq:
@@ -36,12 +28,11 @@ spring:
 #    publisher-confirm-type: correlated
 #    #消息失败回调
 #    publisher-returns: true
-
   rabbitmq:
     username: admin
     password: admin
     host: 1.12.250.154
-    port: 15672
+    port: 5672
 
 #redis
   redis:
@@ -58,3 +49,7 @@ spring:
 file:
   upload:
     dir: ${user.dir}/upload
+
+elasticsearch:
+  host: 1.12.250.154
+  port: 9200

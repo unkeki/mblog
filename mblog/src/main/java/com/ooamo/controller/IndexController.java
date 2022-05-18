@@ -7,6 +7,8 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class IndexController extends BaseController{
 
@@ -30,10 +32,13 @@ public class IndexController extends BaseController{
     @RequestMapping("/search")
     public String search(String q){
 
-        IPage pageData = searchService.search(getPage(), q);
+        req.setAttribute("currentCategoryId",0);
+
+        List<PostVo> pageData = searchService.search(q);
 
         req.setAttribute("q",q);
         req.setAttribute("pageData",pageData);
+        req.setAttribute("total",pageData.size());
 
         return "search";
     }

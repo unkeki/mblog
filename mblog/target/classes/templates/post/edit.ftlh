@@ -18,8 +18,7 @@
                       <select lay-verify="required" name="categoryId" lay-filter="column">
                         <option></option>
                         <#list categories as c>
-                          <option value="${c.id}"  >
-                            ${c.name}
+                          <option value="${c.id}">${c.name}
 <#--                            <#if (c.id) == (post.categoryId)!>selected</#if>-->
                           </option>
                         </#list>

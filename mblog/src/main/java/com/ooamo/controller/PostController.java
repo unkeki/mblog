@@ -5,7 +5,9 @@ import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ooamo.common.lang.Result;
+import com.ooamo.config.RabbitConfig;
 import com.ooamo.entity.*;
+import com.ooamo.search.mq.PostMqIndexMessage;
 import com.ooamo.service.UserService;
 import com.ooamo.util.ValidationUtil;
 import com.ooamo.vo.CommentVo;
@@ -148,6 +150,10 @@ public class PostController extends BaseController {
             postService.updateById(post);
         }
 
+        // 通知消息给mq，告知更新或添加
+        amqpTemplate.convertAndSend(RabbitConfig.es_exchange, RabbitConfig.es_bind_key,
+                new PostMqIndexMessage(post.getId(), PostMqIndexMessage.CREATE_OR_UPDATE));
+
         return Result.success().action("/post/"+post.getId());
 
     }
@@ -176,6 +182,9 @@ public class PostController extends BaseController {
 
         messageService.removeByMap(MapUtil.of("post_id",id));
         collectionService.removeByMap(MapUtil.of("post_id",id));
+
+        amqpTemplate.convertAndSend(RabbitConfig.es_exchange, RabbitConfig.es_bind_key,
+                new PostMqIndexMessage(post.getId(), PostMqIndexMessage.REMOVE));
 
         return Result.success().action("/user/index");
 

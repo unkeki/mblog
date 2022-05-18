@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ooamo.service.*;
 import com.ooamo.shiro.AccountProfile;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -39,6 +40,10 @@ public class BaseController {
 
     @Autowired
     SearchService searchService;
+
+    @Autowired
+    AmqpTemplate amqpTemplate;
+
 
     public Page getPage(){
 

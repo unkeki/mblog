@@ -12,7 +12,7 @@ public class RabbitConfig {
 
     public final static String es_queue = "es_queue";
     public final static String es_exchange = "es_exchange";
-    public final static String es_bind_key = "es_exchange";
+    public final static String es_bind_key = "es_routing";
 
     @Bean
     public Queue exQueue() {
